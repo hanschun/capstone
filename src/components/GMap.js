@@ -39,7 +39,18 @@ export default React.createClass({
   },
   componentDidMount: function() {
     this.map = this.createMap();
-    this.markers = locations.map(location => this.createMarker(location));
+    this.markers = locations.map(location => {
+      var contentString = `<div><h1>${location.name}</h1>
+      <span>${location.address}</span></div>`;
+      var infoWindow = new google.maps.InfoWindow({
+        content: contentString
+      })
+      var marker = this.createMarker(location);
+      marker.addListener('click', () => {
+        infoWindow.open(this.map, marker);
+      });
+      return marker;
+    });
     this.infoWindows = this.markers.map(marker => this.createInfoWindow(marker));
     this.centerOnUserLocation(this.map);
   },
