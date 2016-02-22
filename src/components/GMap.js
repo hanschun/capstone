@@ -1,6 +1,9 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
+import centerMap from '../centermap';
+import showDirections from '../showDirections';
+
 const locations = [
   {
     "name": "Loaves and Fishes",
@@ -40,7 +43,7 @@ export default React.createClass({
   componentDidMount: function() {
     this.map = this.createMap();
     this.markers = locations.map(location => {
-      var contentString = `<div><h1>${location.name}</h1>
+      var contentString = `<div><h3>${location.name}</h3>
       <span>${location.address}</span></div>`;
       var infoWindow = new google.maps.InfoWindow({
         content: contentString
@@ -51,8 +54,9 @@ export default React.createClass({
       });
       return marker;
     });
-    this.infoWindows = this.markers.map(marker => this.createInfoWindow(marker));
-    this.centerOnUserLocation(this.map);
+    // this.infoWindows = this.markers.map(marker => this.createInfoWindow(marker));
+    centerMap(this.map);
+    showDirections(this.map);
   },
   createMap: function() {
     var coords, mapOptions;
@@ -73,39 +77,14 @@ export default React.createClass({
     });
 
   },
-  createInfoWindow: function(marker) {
-    var infoWindow;
-    return infoWindow = new google.maps.InfoWindow({
-      map: this.map,
-      anchor: marker,
-      content: marker.label
-    });
-  },
-  centerOnUserLocation: function(map){
-    var infoWindow = new google.maps.InfoWindow({map: map});
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
+  // createInfoWindow: function(marker) {
+  //   var infoWindow;
+  //   return infoWindow = new google.maps.InfoWindow({
+  //     map: this.map,
+  //     anchor: marker,
+  //     content: marker.label
+  //   });
+  // },
 
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
-        map.setCenter(pos);
-      }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
-      });
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  },
-  handleLocationError: function(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-  }
+
 });
