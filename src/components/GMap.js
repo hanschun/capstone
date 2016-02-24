@@ -25,7 +25,10 @@ export default React.createClass({
       this.geocodeAddress(location, this.map);
     });
     // this.infoWindows = this.markers.map(marker => this.createInfoWindow(marker));
-    centerMap(this.map);
+     document.getElementById('start')
+     .addEventListener('click', () => {
+      centerMap(this.map);
+     });
     showDirections(this.map);
   },
   createMap: function() {
