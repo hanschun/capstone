@@ -3,7 +3,7 @@ export default function showDirections(map){
   var directionsService = new google.maps.DirectionsService;
   directionsDisplay.setMap(map);
   calculateAndDisplayRoute(directionsService, directionsDisplay);
-  document.getElementById('mode').addEventListener('change', () => {
+  document.getElementById('go').addEventListener('click', () => {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   });
 };

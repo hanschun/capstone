@@ -1,4 +1,5 @@
 import React from 'react';
+import Panel from './Panel';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
 import centerMap from '../centermap';
@@ -13,22 +14,24 @@ export default React.createClass({
   map: null,
   markers: [],
   infoWindow: null,
+  center: center,
   render: function() {
     return <div className="GMap">
+      <Panel locs={locations}/>
       <div id="map"></div>
     </div>
   },
   componentDidMount: function() {
-    console.log('locations: ', locations);
     this.map = this.createMap();
     this.markers = locations.map(location => {
       this.geocodeAddress(location, this.map);
     });
-    // this.infoWindows = this.markers.map(marker => this.createInfoWindow(marker));
-     document.getElementById('start')
-     .addEventListener('click', () => {
-      centerMap(this.map);
-     });
+    document.getElementById('center')
+    .addEventListener('click', () => {
+      centerMap(this.map, result => {
+          center = result;
+      });
+    });
     showDirections(this.map);
   },
   createMap: function() {

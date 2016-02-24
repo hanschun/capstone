@@ -1,4 +1,4 @@
-export default function (map){
+export default function (map, cb){
   var infoWindow = new google.maps.InfoWindow({map: map});
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
@@ -11,6 +11,7 @@ export default function (map){
       infoWindow.setPosition(pos);
       infoWindow.setContent('Location found.');
       map.setCenter(pos);
+      return cb(pos);
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
