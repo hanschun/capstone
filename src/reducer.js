@@ -1,13 +1,13 @@
-import {setLocations, setCenter, setDestination} from './core';
+import {Map} from 'immutable';
 
-export default function reducer(state = INITIAL_STATE, action){
-  switch(action.type){
-    case 'SET_LOCATIONS':
-      return setLocations(state, locations);
-    case 'SET_CENTER':
-      return setCenter(state, location);
-    case 'SET_DESTINATION':
-      return setDestination(state, location);
-  }
-  return state;
+function setState(state, newState){
+  return state.merge(newState);
+}
+
+export default function(state = Map(), action){
+  switch(action.type) {
+    case 'SET_STATE':
+      return setState(state, action.state);
+    }
+    return state;
 }

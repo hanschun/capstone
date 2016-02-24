@@ -3,34 +3,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
 import centerMap from '../centermap';
 import showDirections from '../showDirections';
-
-const locations = [
-  {
-    "name": "Loaves and Fishes",
-    "address": "1351 N C St, Sacramento, CA 95811",
-    "coords": {
-      "lat": 38.5918347,
-      "lon": -121.4850515
-    }
-  },
-  {
-    "name": "River City Food Bank",
-    "address": "1800 28th St, Sacramento, CA 95816",
-    "coords": {
-      "lat": 38.5648937,
-      "lon": -121.4756712
-    }
-  },
-  {
-    "name": "Sacramento Food Bank",
-    "address": "3333 3rd Ave, Sacramento, CA 95817",
-    "coords": {
-      "lat": 38.552414,
-      "lon": -121.4722987
-    }
-  }
-];
-
+var locations;
 export default React.createClass({
   map: null,
   markers: [],
@@ -41,18 +14,11 @@ export default React.createClass({
     </div>
   },
   componentDidMount: function() {
+    locations = this.props.locs;
+    console.log('locations: ', locations);
     this.map = this.createMap();
     this.markers = locations.map(location => {
-      var contentString = `<div><h3>${location.name}</h3>
-      <span>${location.address}</span></div>`;
-      var infoWindow = new google.maps.InfoWindow({
-        content: contentString
-      })
-      var marker = this.createMarker(location);
-      marker.addListener('click', () => {
-        infoWindow.open(this.map, marker);
-      });
-      return marker;
+      this.geocodeAddress(location, this.map);
     });
     // this.infoWindows = this.markers.map(marker => this.createInfoWindow(marker));
     centerMap(this.map);
@@ -64,27 +30,51 @@ export default React.createClass({
     mapOptions = {
       minZoom: 9,
       zoom: 14,
-      center: new google.maps.LatLng(this.props.coords.lat, this.props.coords.lon)
+      center: new google.maps.LatLng(this.props.coords.lat, this.props.coords.lng)
     };
     return new google.maps.Map(document.getElementById('map'), mapOptions);
   },
-  createMarker: function(location) {
-    var marker;
-    return marker = new google.maps.Marker({
-      position: new google.maps.LatLng(location.coords.lat, location.coords.lon),
-      map: this.map,
-      label: location.name
-    });
-
-  },
-  // createInfoWindow: function(marker) {
-  //   var infoWindow;
-  //   return infoWindow = new google.maps.InfoWindow({
+  // createMarker: function(location, position) {
+  //   var marker;
+  //   return marker = new google.maps.Marker({
+  //     position: position,
   //     map: this.map,
-  //     anchor: marker,
-  //     content: marker.label
+  //     label: location.name
   //   });
   // },
-
-
+  // createMarkersWithInfo(location, position){
+  //   var contentString = `<div><h3>${location.name}</h3>
+  //   <span>${location.address}</span></div>`;
+  //   var infoWindow = new google.maps.InfoWindow({
+  //     content: contentString
+  //   });
+  //   var marker = this.createMarker(location, position);
+  //   marker.addListener('click', () => {
+  //     infoWindow.open(this.map, marker);
+  //   });
+  //   return marker;
+  // },
+  geocodeAddress: function(location, map) {
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'address': location.address}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        var contentString = `<div><h3>${location.name}</h3>
+        <span>${location.address}</span></div>`;
+        var infoWindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        var marker = new google.maps.Marker({
+          position: results[0].geometry.location,
+          map: map,
+          label: location.name
+        });
+        marker.addListener('click', () => {
+          infoWindow.open(map, marker);
+        });
+        return marker;
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
 });
