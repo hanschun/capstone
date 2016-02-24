@@ -6,7 +6,7 @@ export default React.createClass({
   mixins: [PureRenderMixin],
   render: function() {
     return (
-      <button><b>Mode of Travel: </b>
+      <button>Mode of Travel:
       <select id="mode">
         <option value="TRANSIT">Transit</option>
         <option value="WALKING">Walking</option>

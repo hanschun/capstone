@@ -3,9 +3,9 @@ export default function showDirections(map){
   var directionsService = new google.maps.DirectionsService;
   directionsDisplay.setMap(map);
   calculateAndDisplayRoute(directionsService, directionsDisplay);
-  document.getElementById('go').addEventListener('click', () => {
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
-  });
+  // document.getElementById('go').addEventListener('click', () => {
+  //   calculateAndDisplayRoute(directionsService, directionsDisplay);
+  // });
 };
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -13,8 +13,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   var start = document.getElementById('start').value;
   var end = document.getElementById('end').value;
   directionsService.route({
-    origin: start,  // Loaves and Fishes.
-    destination: end,  // Cathedral of the Blessed Sacrament.
+    origin: start,
+    destination: end,
     // Note that Javascript allows us to access the constant
     // using square brackets and a string value as its
     // "property."

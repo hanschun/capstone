@@ -5,13 +5,16 @@ import {connect} from 'react-redux';
 export default React.createClass({
   mixins: [PureRenderMixin],
   render: function() {
-    return <button><strong>Start:</strong>
+    return <button>Start:
     <select id="start">
       {this.props.locs.map((location, i) => {
         return (
-          <option key={i} value={location.address}>{location.name}</option>
+          <option key={i+1} value={location.address}>{location.name}</option>
         );
       })}
     </select></button>
+},
+  componentDidMount: function() {
+    this.props.locs.map(location => console.log('Panel loc: ', location));
   }
 });

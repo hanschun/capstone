@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 export default React.createClass({
   mixins: [PureRenderMixin],
   render: function() {
-    return <button><strong>End:</strong>
+    return <button>End:
     <select id="end">
       {this.props.locs.map((location, i) => {
         return (

@@ -11,36 +11,54 @@ let center = {
 };
 
 export default React.createClass({
+  locations: locations,
   map: null,
   markers: [],
   infoWindow: null,
-  center: center,
   render: function() {
-    return <div className="GMap">
-      <Panel locs={locations}/>
-      <div id="map"></div>
-    </div>
+    return (
+      <div className="GMap">
+        <Panel locs={this.locations} />
+        <div id="map"></div>
+      </div>
+    );
   },
   componentDidMount: function() {
-    this.map = this.createMap();
-    this.markers = locations.map(location => {
-      this.geocodeAddress(location, this.map);
-    });
-    document.getElementById('center')
-    .addEventListener('click', () => {
-      centerMap(this.map, result => {
-          center = result;
+    Promise.resolve(this.createMap())
+    .then(result => {
+      this.map = result
+      return this.map;
+    })
+    .then(map => {
+      return new Promise((resolve, reject) => {
+        this.setCenter(map, center => {
+        locations.unshift({name: 'My location', address: center});
+        resolve(locations);
+        })
+      })
+    })
+    .then(() => {
+      this.markers = this.locations.map(location => {
+        this.geocodeAddress(location, this.map);
       });
-    });
-    showDirections(this.map);
+      document.getElementById('center')
+      .addEventListener('click', () => {
+        this.setCenter(this.map, center => {
+          console.log('CENTER', center);
+        });
+      });
+      document.getElementById('go').addEventListener('click', () => {
+          showDirections(this.map);
+      });
+    })
   },
   createMap: function() {
     var coords, mapOptions;
-    coords = this.props.coords;
+    coords = center;
     mapOptions = {
       minZoom: 9,
       zoom: 14,
-      center: new google.maps.LatLng(center.lat, center.lng)
+      center: new google.maps.LatLng(coords.lat, coords.lng)
     };
     return new google.maps.Map(document.getElementById('map'), mapOptions);
   },
@@ -65,6 +83,23 @@ export default React.createClass({
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
+    });
+  },
+  setCenter: function(map, cb) {
+    centerMap(map, position => {
+      let geocoder = new google.maps.Geocoder;
+      geocoder.geocode({'location': position}, function(results, status){
+        if(status === google.maps.GeocoderStatus.OK){
+          if (results[1]) {
+            let center = results[1].formatted_address;
+            return cb(center);
+          } else {
+            window.alert('No results found');
+          }
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+        }
+      });
     });
   }
 });
