@@ -14,7 +14,9 @@ export default React.createClass({
       })}
     </select></button>
 },
-  componentDidMount: function() {
-    this.props.locs.map(location => console.log('Panel loc: ', location));
-  }
+componentWillReceiveProps: function(nextProps) {
+    this.props = nextProps;
+    this.props.locs.map(location => console.log('Btn loc: ', location));
+    this.forceUpdate();
+}
 });

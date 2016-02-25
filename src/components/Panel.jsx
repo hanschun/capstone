@@ -19,5 +19,9 @@ export default React.createClass({
     <GoBtn />
     </div>
     );
+  },
+  componentWillReceiveProps: function(nextProps) {
+      this.props = nextProps;
+      this.forceUpdate();
   }
 });

@@ -32,13 +32,14 @@ export default React.createClass({
     .then(map => {
       return new Promise((resolve, reject) => {
         this.setCenter(map, center => {
-        locations.unshift({name: 'My location', address: center});
-        resolve(locations);
+        this.locations.unshift({name: 'My location', address: center});
+        resolve(this.locations);
         })
       })
     })
     .then(() => {
-      this.markers = this.locations.map(location => {
+      this.forceUpdate();
+      this.markers = this.locations.map((location, i) => {
         this.geocodeAddress(location, this.map);
       });
       document.getElementById('center')
