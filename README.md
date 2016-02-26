@@ -13,15 +13,18 @@ With these design choices in mind, I am creating a small web application that dr
 This draft has a simple app shell developed in React. It draws data from the Google Maps API to give directions using the Google Maps directions service.
 
 Requirements: 
+
 1. Node.js (5.3.0 as of this writing) and npm(3.5.3) Check this with ```node --version``` and ```npm --version``` respectively on the terminal.
 2. A Google Developer API key to access Google Maps. ```https://developers.google.com/maps/documentation/javascript/``` and choose Get a Key.
 
 To use: 
+
 1. Fork or clone this repo. 
 2. Use ```npm install``` to install node module dependencies
 3. Start the webpack dev server with ```webpack-dev-server```
 
 Next steps:
+
 1. Needs a live server example
 2. Write and include unit tests
 3. I would really like to implement Redux here. I hope to do that soon. Many dependencies already included in the package.json.
