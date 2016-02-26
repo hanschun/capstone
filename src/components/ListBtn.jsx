@@ -5,6 +5,6 @@ import {connect} from 'react-redux';
 export default React.createClass({
   mixins: [PureRenderMixin],
   render: function() {
-    return <button id="center">Center</button>;
+    return <a href="#/list"><button id="tolist">List View</button></a>;
   }
 });

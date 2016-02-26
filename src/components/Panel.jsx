@@ -6,6 +6,7 @@ import StartBtn from './StartBtn';
 import DestinationBtn from './DestinationBtn';
 import ModeBtn from './ModeBtn';
 import GoBtn from './GoBtn';
+import ListBtn from './ListBtn';
 
 export default React.createClass({
   mixins: [PureRenderMixin],
@@ -17,6 +18,7 @@ export default React.createClass({
     <StartBtn locs={this.props.locs} />
     <DestinationBtn locs={this.props.locs} />
     <GoBtn />
+    <ListBtn />
     </div>
     );
   },

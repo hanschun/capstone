@@ -32,7 +32,8 @@ export default React.createClass({
     .then(map => {
       return new Promise((resolve, reject) => {
         this.setCenter(map, center => {
-        this.locations.unshift({name: 'My location', address: center});
+          if(this.locations[0].name !== 'My location')
+            this.locations.unshift({name: 'My location', address: center});
         resolve(this.locations);
         })
       })
@@ -42,16 +43,17 @@ export default React.createClass({
       this.markers = this.locations.map((location, i) => {
         this.geocodeAddress(location, this.map);
       });
-      document.getElementById('center')
-      .addEventListener('click', () => {
-        this.setCenter(this.map, center => {
-          console.log('CENTER', center);
-        });
+    });
+
+    document.getElementById('center')
+    .addEventListener('click', () => {
+      this.setCenter(this.map, center => {
+        console.log('CENTER', center);
       });
-      document.getElementById('go').addEventListener('click', () => {
-          showDirections(this.map);
-      });
-    })
+    });
+    document.getElementById('go').addEventListener('click', () => {
+        showDirections(this.map);
+    });
   },
   createMap: function() {
     var coords, mapOptions;
