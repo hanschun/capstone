@@ -28,4 +28,4 @@ Next steps:
 1. Needs a live server example
 2. Write and include unit tests
 3. I would really like to implement Redux here. I hope to do that soon. Many dependencies already included in the package.json.
-4. Google Maps API has difficulty with query limits when there are more than 5 entries in locations.js. Ideally this would be in the hundreds, so I need to solve this problem. I think this can be achieved with a combination of better filtering and API call structure, but this may also be limited by the free service plan. I will be investigating this.
+4. When interfacing with Google Maps API, this project has difficulty with query limits when there are more than 5 entries in locations.js. Ideally this would be in the hundreds, so I need to solve this problem. I think this can be achieved with a combination of better filtering and API call structure, but this may also be limited by the free service plan. I will be investigating this.
