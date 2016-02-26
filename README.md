@@ -14,7 +14,7 @@ This draft has a simple app shell developed in React. It draws data from the Goo
 
 Requirements: 
 
-1. Node.js (5.3.0 as of this writing) and npm(3.5.3) Check this with ```node --version``` and ```npm --version``` respectively on the terminal.
+1. Node.js (5.3.0 as of this writing) and npm(3.5.3) Check this with ```node --version``` and ```npm --version``` respectively on the terminal. Get node.js at ```https://nodejs.org``` which will include npm.
 2. A Google Developer API key to access Google Maps. ```https://developers.google.com/maps/documentation/javascript/``` and choose Get a Key.
 
 To use: 
