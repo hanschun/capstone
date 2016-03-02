@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router, {Route} from 'react-router';
+import createHistory from 'history/lib/createHashHistory';
 import locations from './locations';
 import Panel from './components/Panel';
 import GMap from './components/GMap';
