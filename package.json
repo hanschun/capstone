@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "map app",
   "main": "index.js",
-  "engines": {
-    "node": "5.3.0"
-  },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(js|jsx)'",
     "test:watch": "npm run test -- --watch",
@@ -15,6 +12,15 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hanschun/capstone.git"
+  },
+  "engines": {
+    "node": "5.3.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   },
   "author": "Hans Chun",
   "license": "ISC",
