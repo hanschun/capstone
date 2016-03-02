@@ -3,7 +3,7 @@ var path = require('path');
 module.exports = {
   devtool: 'source-map',
   entry: [
-    './src/index'
+    '../src/index'
   ],
   module: {
     loaders: [
@@ -23,7 +23,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: '/dist/',
+    publicPath: '/',
     filename: 'bundle.js'
   },
   plugins: [
