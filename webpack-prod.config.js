@@ -8,10 +8,10 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx$/,
-             loader: 'babel',
+             loader: 'babel-loader',
              include: path.join(__dirname, 'src') },
            { test: /\.js$/,
-             loader: 'babel',
+             loader: 'babel-loader',
              exclude: /node_modules/ },
            { test: /\.scss?$/,
              loader: 'style!css!sass',
@@ -23,11 +23,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/dist/',
     filename: 'bundle.js'
-  },
-  devServer: {
-    contentBase: './dist'
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),
