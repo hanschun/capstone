@@ -7,19 +7,20 @@ import DestinationBtn from './DestinationBtn';
 import ModeBtn from './ModeBtn';
 import GoBtn from './GoBtn';
 import ListBtn from './ListBtn';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 
 export default React.createClass({
   mixins: [PureRenderMixin],
   render: function() {
     return (
-    <div id="floating-panel">
+    <ButtonToolbar id="floating-panel">
     <CenterBtn />
     <ModeBtn />
     <StartBtn locs={this.props.locs} />
     <DestinationBtn locs={this.props.locs} />
     <GoBtn />
     <ListBtn />
-    </div>
+    </ButtonToolbar>
     );
   },
   componentWillReceiveProps: function(nextProps) {
